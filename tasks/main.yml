@@ -6,8 +6,13 @@
   apt_repository: repo='deb http://dl.hhvm.com/debian wheezy main' state=present
 
 - name: install hhvm packages
-  apt: pkg={{ item }} state=latest update_cache=yes force=yes
-  with_items:
+  apt:
+    name: {{ packages }}
+    state: latest
+    update_cache: yes
+    force: yes
+  vars:
+    packages:
       - hhvm-fastcgi
   notify: restart hhvm
 
